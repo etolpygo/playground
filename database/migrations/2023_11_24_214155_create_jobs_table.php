@@ -23,6 +23,7 @@ return new class extends Migration
             $table->string('requirements');
             $table->boolean('accepting_applications');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
