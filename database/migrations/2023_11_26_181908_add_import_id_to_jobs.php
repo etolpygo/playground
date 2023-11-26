@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('jobs', function (Blueprint $table) {
-            $table->uuid('import_id')->constrained('imports');
+            $table->uuid('import_id')->constrained('imports')->nullable();
         });
     }
 
