@@ -35,10 +35,10 @@ class JobsCsvImportJob implements ShouldQueue
 
         Storage::disk('local')->put($filename, $content);
 
-        $import = Import::new([
+        $import = new Import([
             'filename' => $filename
         ]);
-        $import->uploading_user_id = '53418372-0a3e-4b13-8335-f74baf73a4de';//$this->user->id;
+        $import->uploading_user_id = $this->user->user_id;
         $import->save();
 
 

@@ -23,5 +23,14 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::resource('jobs', JobController::class);
-Route::post('jobs/import', ImportJobsCsvController::class);
+Route::resource('jobs', JobController::class)->only([
+    'index', 'show'
+]);
+
+
+Route::middleware('auth:sanctum')->group(function () {
+    Route::post('jobs/import', ImportJobsCsvController::class);
+    Route::resource('jobs', JobController::class)->except([
+        'index', 'show'
+    ]);
+});
