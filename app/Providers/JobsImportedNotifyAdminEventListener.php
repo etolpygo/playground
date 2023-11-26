@@ -24,7 +24,7 @@ class JobsImportedNotifyAdminEventListener
     public function handle(JobsImportedNotifyAdminEvent $event): void
     {
         $batch = $event->batch;
-        $email = 'sample_email@thisapp.com'; // TODO logged in user?
+        $email = $event->email;
         Mail::to($email)->send(
             new JobsImportedNotification([
                 'totalJobs' => $batch->totalJobs,
