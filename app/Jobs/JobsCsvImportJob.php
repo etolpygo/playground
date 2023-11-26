@@ -3,11 +3,16 @@
 namespace App\Jobs;
 
 use Exception;
+use Carbon\Carbon;
+use App\Models\User;
+use App\Models\Import;
 use Illuminate\Bus\Batch;
 use App\Jobs\JobImportJob;
 use Illuminate\Bus\Queueable;
 use Illuminate\Support\Facades\Bus;
+use Illuminate\Support\Facades\File;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
@@ -19,13 +24,22 @@ class JobsCsvImportJob implements ShouldQueue
  
     public $timeout = 600;
  
-    public function __construct(private string $file)
+    public function __construct(private string $file, private User $user)
     {
     }
 
     public function handle(): void
     {
-        // TODO save file into imports table
+        $filename = (string) Carbon::now() . '_jobs_import.csv';
+        $content = File::get($this->file);
+
+        Storage::disk('local')->put($filename, $content);
+
+        $import = Import::new([
+            'filename' => $filename
+        ]);
+        $import->uploading_user_id = '53418372-0a3e-4b13-8335-f74baf73a4de';//$this->user->id;
+        $import->save();
 
 
         $fieldMap = [
@@ -57,7 +71,7 @@ class JobsCsvImportJob implements ShouldQueue
             }, $line);
 
         
-            $jobs[] = new JobImportJob($result, $header);
+            $jobs[] = new JobImportJob($result, $header, $import->import_id);
         }
  
         if (!empty($jobs)) {

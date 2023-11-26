@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use App\Jobs\JobsCsvImportJob;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Facades\Auth;
 
 
 class ImportJobsCsvController extends Controller
@@ -18,7 +19,7 @@ class ImportJobsCsvController extends Controller
     {
         $this->isValid($request);
 
-        JobsCsvImportJob::dispatch($request->file('file'));
+        JobsCsvImportJob::dispatch($request->file('file'), Auth::user());
 
         return new JsonResponse(
             ['The file has been submitted for saving.'],

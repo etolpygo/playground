@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Job extends Model
@@ -16,6 +17,8 @@ class Job extends Model
     use HasFactory;
     use HasUuids;
     use SoftDeletes; 
+
+    protected $primaryKey = 'job_id';
 
     public $incrementing = false;
 
@@ -62,6 +65,11 @@ class Job extends Model
         return $this->errors;
     }
 
+    public function import(): BelongsTo
+    {
+        return $this->belongsTo(Import::class, 'import_id');
+    }
+
     private $rules = [
         'job_code' => 'required|max:8',
         'title' => 'required|max:255',
@@ -77,5 +85,6 @@ class Job extends Model
         'requirements' => 'required|max:2048',
         'accepting_applications' => 'sometimes|boolean',
     ];
+    
 
 }

@@ -3,6 +3,7 @@
 namespace App\Jobs;
 
 use App\Models\Job;
+use Ramsey\Uuid\Uuid;
 use Illuminate\Bus\Batchable;
 use Illuminate\Bus\Queueable;
 use Illuminate\Support\Facades\Log;
@@ -15,7 +16,7 @@ class JobImportJob implements ShouldQueue
 {
     use Batchable, Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
-    public function __construct(private array $line, private array $header)
+    public function __construct(private array $line, private array $header, private Uuid $import_id)
     {
     }
 
@@ -33,7 +34,9 @@ class JobImportJob implements ShouldQueue
         }
 
         if ($job->validate($data)) {
-            $job = Job::create($data);
+            $job = Job::new($data);
+            $job->import_id = $this->import_id;
+            $job->save();
         } else {
             Log::error($job->errors());
         }
