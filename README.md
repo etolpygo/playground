@@ -19,7 +19,7 @@ Application is now available at http://127.0.0.1:8000/
 public:
 * GET http://127.0.0.1:8000/api/jobs
 * GET http://127.0.0.1:8000/api/jobs/{job_id}
-* POST http://127.0.0.1:8000/api/login
+* POST http://127.0.0.1:8000/api/login - login with email of any seeded user and password 'password'
 
 authenticated:
 * POST http://127.0.0.1:8000/api/jobs
