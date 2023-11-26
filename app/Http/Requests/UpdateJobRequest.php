@@ -31,6 +31,7 @@ class UpdateJobRequest extends FormRequest
                 'nullable',
                 new Enum(JobTypeEnum::class)
             ],
+            'salary' => 'nullable|max:32',
             'application_deadline' => 'nullable|date',
             'description' => 'nullable|max:2048',
             'requirements' => 'nullable|max:2048',

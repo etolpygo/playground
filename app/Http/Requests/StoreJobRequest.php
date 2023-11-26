@@ -31,6 +31,7 @@ class StoreJobRequest extends FormRequest
                 'required',
                 new Enum(JobTypeEnum::class)
             ],
+            'salary' => 'nullable|max:32',
             'application_deadline' => 'nullable|date',
             'description' => 'required|max:2048',
             'requirements' => 'required|max:2048',

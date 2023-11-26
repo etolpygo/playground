@@ -1,8 +1,9 @@
 <?php
 
-use App\Http\Controllers\JobController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\JobController;
+use App\Http\Controllers\ImportJobsCsvController;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,3 +21,4 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::resource('jobs', JobController::class);
+Route::post('jobs/import', ImportJobsCsvController::class);
