@@ -1,0 +1,6 @@
+job_code,title,location,job_type,salary,application_deadline,description,requirements,accepting_applications
+SDA123,Software Developer,Westport,full-time,"72,000",,Develop Software,Ability to Develop Software,
+UXD234,UX Designer,Westport,full-time,"60,000",,Design User Interfaces,Ability to Design User Interfaces,
+PO123ABC,Product Owner,Remote,full-time,,2023-12-24,Own product,Ability to own product,
+TL678DD,Team Lead,Westport,full-time,"65,000",,Lead the team,Ability to lead the team,
+QA345K,Quality Assurance,Remote,full-time,"56,000",,Test Software,Ability to Test Software,

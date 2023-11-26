@@ -9,9 +9,11 @@
 
 
 ### Running the app ###
-* cp .env.example .env
-* php artisan migrate:fresh --seed
-* php artisan serve
+```
+cp .env.example .env
+php artisan migrate:fresh --seed
+php artisan serve
+```
 
 Application is now available at http://127.0.0.1:8000/
 
@@ -26,6 +28,8 @@ authenticated:
 * POST http://127.0.0.1:8000/api/jobs/import
 * PUT|PATCH http://127.0.0.1:8000/api/jobs/{job}
 * DELETE http://127.0.0.1:8000/api/jobs/{job} 
+
+Sample csv to use with csv import is available under database/sample_csv/samplejobs.csv
 
 ## License
 
