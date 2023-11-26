@@ -43,7 +43,7 @@ class JobsCsvImportJob implements ShouldQueue
         $fileStream = fopen($this->file, 'r');
         $header = fgetcsv($fileStream); 
 
-        // columns may be in different order
+        // allow columns to be in different order
         if ((array_diff($fieldMap, $header) != array_diff($header, $fieldMap)) && (array_diff($header, $fieldMap) != array())) {
             throw new Exception('Invalid headers.');
         }
@@ -51,7 +51,13 @@ class JobsCsvImportJob implements ShouldQueue
         $jobs = [];
  
         while (($line = fgetcsv($fileStream)) !== false) {
-            $jobs[] = new JobImportJob($line, $header);
+            // set all values to null that are empty string
+            $result = array_map(function ($value) {
+                return $value === '' ? null : $value;
+            }, $line);
+
+        
+            $jobs[] = new JobImportJob($result, $header);
         }
  
         if (!empty($jobs)) {

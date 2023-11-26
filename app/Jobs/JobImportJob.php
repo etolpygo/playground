@@ -27,6 +27,11 @@ class JobImportJob implements ShouldQueue
 
         $job = new Job();
         $data = array_combine($this->header, $this->line);
+
+        if (!isset($data['accepting_applications'])) {
+            $data['accepting_applications'] = true; 
+        }
+
         if ($job->validate($data)) {
             $job = Job::create($data);
         } else {

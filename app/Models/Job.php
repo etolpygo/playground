@@ -75,7 +75,7 @@ class Job extends Model
         'application_deadline' => 'nullable|date',
         'description' => 'required|max:2048',
         'requirements' => 'required|max:2048',
-        'accepting_applications' => 'nullable|boolean',
+        'accepting_applications' => 'sometimes|boolean',
     ];
 
 }

@@ -35,7 +35,7 @@ class UpdateJobRequest extends FormRequest
             'application_deadline' => 'nullable|date',
             'description' => 'nullable|max:2048',
             'requirements' => 'nullable|max:2048',
-            'accepting_applications' => 'nullable|boolean',
+            'accepting_applications' => 'sometimes|boolean',
         ];
     }
 }
