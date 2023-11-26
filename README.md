@@ -1,4 +1,4 @@
-## Sample Laravel 10 app ##
+## Sample Laravel 10 API ##
 
 * CRUD jobs, basic Jobs resources
 * POST api/jobs/import endpoint allowing import of csv jobs file
