@@ -10,11 +10,12 @@
 
 ### Running the app ###
 ```
+composer install
 cp .env.example .env
+php artisan key:generate
 php artisan migrate:fresh --seed
 php artisan serve
 ```
-
 Application is now available at http://127.0.0.1:8000/
 
 ### Endpoints ###
@@ -30,6 +31,11 @@ authenticated:
 * DELETE http://127.0.0.1:8000/api/jobs/{job} 
 
 Sample csv to use with csv import is available under `database/sample_csv/samplejobs.csv`
+
+Postman collection can be generated from defined routes:
+```
+php artisan export:postman
+```
 
 ## License
 
