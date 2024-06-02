@@ -6,14 +6,34 @@ use App\Models\Job;
 use Illuminate\Http\Request;
 use App\Http\Resources\JobResource;
 use App\Http\Resources\JobCollection;
+use Spatie\QueryBuilder\QueryBuilder;
 use App\Http\Requests\StoreJobRequest;
+use Spatie\QueryBuilder\AllowedFilter;
 use App\Http\Requests\UpdateJobRequest;
+use Illuminate\Database\Eloquent\Builder;
 
 class JobController extends Controller
 {
     public function index(Request $request)
     {
-        return new JobCollection(Job::where('accepting_applications', true)->get());
+        $jobs = QueryBuilder::for(Job::class)
+            ->allowedFilters([
+                AllowedFilter::exact('job_type'),
+                AllowedFilter::exact('job_code'),
+                AllowedFilter::callback('search', function (Builder $query, $value) {
+                    $query->where(function (Builder $query) use ($value) {
+                        $filterValue = '%' . $value . '%';
+                        $query->orWhere('title', 'like', $filterValue)
+                            ->orWhere('description', 'like', $filterValue)
+                            ->orWhere('requirements', 'like', $filterValue);
+                    });
+                }),
+            ])
+            ->defaultSort('-created_at')
+            ->allowedSorts('title', 'created_at')
+            ->where('accepting_applications', true)
+            ->paginate(10);
+        return new JobCollection($jobs);
     }
 
     public function show(Request $request, Job $job)
